@@ -148,6 +148,7 @@ parallax/
 │       ├── pages/          # Landing, HowItWorks, Impact, Benchmark, Engine
 │       └── components/     # map, transcript, agent trace, report viewer, shadcn ui/
 ├── dev.sh                  # one-command launcher
+|-- slides.pdf
 └── README.md
 ```
 
