@@ -198,7 +198,7 @@ No code was forked from an existing project; the repository was built from an em
 | **Execution & Technical Work** | Slide deck (`./slides.pdf`) and by running the full app — `backend/` + `frontend/`, runnable via `./dev.sh` |
 | **Evaluation & Evidence** |Running `backend/eval/` + the `/benchmark` page (Opus vs Sonnet, per-dimension/domain, limitations) |
 | **Communication & Presentation** | README + `/how-it-works`, `/impact`, `/benchmark` pages + demo video + `./slides.pdf`|
-| **Process, Integrity & Disclosure** | "AI usage disclosure" + "Citations" above;  (note: code was pasted over from previous github repo's and local dirs so github commit history is not accurate) |
+| **Process, Integrity & Disclosure** | `./slides.pdf`, "AI usage disclosure" + "Citations" above;  (note: code was pasted over from previous github repo's and local dirs so github commit history is not accurate) |
 
 ---
 
