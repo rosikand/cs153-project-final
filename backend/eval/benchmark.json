@@ -1,0 +1,67 @@
+{
+  "name": "Parallax Geospatial Intelligence Benchmark",
+  "version": "1.0",
+  "description": "Domain-tagged natural-language geospatial questions with rubrics, used to grade the agent on tool selection, groundedness, correctness, and clarity.",
+  "dimensions": {
+    "tool_use": "Did the agent select appropriate data source(s) for the question (e.g. FIRMS/GIBS for fires, NDVI for crops, change-detection for over-time, Esri for fine detail, historical dates when asked)?",
+    "groundedness": "Is the answer grounded in concrete observations from the fetched imagery (plumes, water extent, NDVI values, counts, what changed) rather than generic knowledge?",
+    "correctness": "Is the answer plausible and internally consistent with the data it cites and with well-established real-world facts?",
+    "clarity": "Does it answer the question directly and specifically, and honestly flag limitations (cloud cover, latency, resolution)?"
+  },
+  "cases": [
+    {
+      "id": "env-fire-norcal",
+      "domain": "Environmental",
+      "prompt": "Are there active wildfires in Northern California right now, and roughly where?",
+      "rubric": "Should geocode Northern California and query active fires (FIRMS) and/or real-time GIBS imagery for smoke. A strong answer gives fire locations/counts or, if no FIRMS key, transparently falls back to GIBS smoke/burn-scar imagery and says so. Must not hallucinate specific fires."
+    },
+    {
+      "id": "env-lakepowell-change",
+      "domain": "Environmental",
+      "prompt": "How much has Lake Powell's water level changed since 2017?",
+      "rubric": "Should use change-detection (compare_over_time) between ~2017 and recent, and describe shoreline/water-extent change with the actual scene dates. Should note this is a visual proxy, not a gauge reading."
+    },
+    {
+      "id": "env-deforestation-rondonia",
+      "domain": "Environmental",
+      "prompt": "Is there visible deforestation near Rondonia, Brazil, and how does it compare to a few years ago?",
+      "rubric": "Should fetch high-res Sentinel-2 and/or change-detection, describe the fishbone clearing pattern and any expansion between dates. Groundedness in the imagery is key."
+    },
+    {
+      "id": "con-fuji-snow",
+      "domain": "Consumer",
+      "prompt": "I'm planning a trip — is there snow on Mount Fuji right now?",
+      "rubric": "Should geocode Fuji and fetch recent imagery (GIBS/Sentinel-2), and report whether the summit shows snow, with the imagery date. Honest about cloud cover if present."
+    },
+    {
+      "id": "con-aspen-historical",
+      "domain": "Consumer",
+      "prompt": "Was there snow in Aspen, Colorado around Christmas 2023?",
+      "rubric": "Historical query: should fetch imagery dated near Dec 2023 (GIBS date or Sentinel-2 range), not answer from memory. Must report what the dated imagery shows."
+    },
+    {
+      "id": "con-portdetail-longbeach",
+      "domain": "Consumer",
+      "prompt": "What does the waterfront at the Port of Long Beach look like in detail?",
+      "rubric": "Detail question with no time-sensitivity: should prefer Esri sub-meter (get_basemap_imagery) or high-res Sentinel-2, and describe terminals, ships, container yards concretely."
+    },
+    {
+      "id": "fin-corn-ndvi",
+      "domain": "Finance",
+      "prompt": "What does crop health look like across farmland near Ames, Iowa this season — any signs of stress?",
+      "rubric": "Commodity/yield signal: should use NDVI (get_vegetation_index), cite mean NDVI and % healthy, and translate to a crop-health read. Quantitative grounding expected."
+    },
+    {
+      "id": "fin-cushing-storage",
+      "domain": "Finance",
+      "prompt": "Has industrial/storage activity at the Cushing, Oklahoma oil hub changed over the past couple of years?",
+      "rubric": "Classic satellite-alpha use case: should use change-detection and/or high-res imagery to compare the tank farm over time and describe visible change, while noting resolution limits for reading individual tank tops."
+    },
+    {
+      "id": "fin-shanghai-port",
+      "domain": "Finance",
+      "prompt": "Is there unusual congestion or flooding disrupting the Port of Shanghai region?",
+      "rubric": "Supply-chain signal: should fetch real-time GIBS and/or high-res imagery, look for water extent/flooding or vessel congestion, and give a grounded read with honest limits on what coarse imagery can resolve."
+    }
+  ]
+}

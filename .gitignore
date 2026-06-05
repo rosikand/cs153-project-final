@@ -1,8 +1,15 @@
-node_modules
-dist
-.env
+# Python
+backend/.venv/
+__pycache__/
+*.pyc
+backend/.env
+
+# Generated query history + reports
+backend/data/
+
+# Node
+frontend/node_modules/
+frontend/dist/
+
+# OS
 .DS_Store
-npm-debug.log*
-data/
-tmp/
-output/

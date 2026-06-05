@@ -1,0 +1,497 @@
+{
+  "benchmark": "Parallax Geospatial Intelligence Benchmark",
+  "version": "1.0",
+  "judge_model": "claude-sonnet-4-6",
+  "model_ids": {
+    "opus": "claude-opus-4-8",
+    "sonnet": "claude-sonnet-4-6"
+  },
+  "dimensions": {
+    "tool_use": "Did the agent select appropriate data source(s) for the question (e.g. FIRMS/GIBS for fires, NDVI for crops, change-detection for over-time, Esri for fine detail, historical dates when asked)?",
+    "groundedness": "Is the answer grounded in concrete observations from the fetched imagery (plumes, water extent, NDVI values, counts, what changed) rather than generic knowledge?",
+    "correctness": "Is the answer plausible and internally consistent with the data it cites and with well-established real-world facts?",
+    "clarity": "Does it answer the question directly and specifically, and honestly flag limitations (cloud cover, latency, resolution)?"
+  },
+  "generated_at": "2026-06-05T02:00:12",
+  "n_cases": 9,
+  "runs": [
+    {
+      "id": "con-aspen-historical",
+      "domain": "Consumer",
+      "prompt": "Was there snow in Aspen, Colorado around Christmas 2023?",
+      "model": "opus",
+      "model_id": "claude-opus-4-8",
+      "tools_used": [
+        "geocode_location",
+        "get_realtime_imagery"
+      ],
+      "answer": "Yes \u2014 there was clearly snow in Aspen around Christmas 2023.\n\nThe NASA VIIRS true-color image from **December 25, 2023** shows the Aspen area blanketed almost entirely in bright white snow. The terrain has the classic high-elevation winter look: broad white snow cover draped over the mountains, with darker branching lines tracing the forested ridges, valleys, and drainages (where conifers and shadows poke through the snow). There's no bare brown ground visible, indicating widespread, continuous snowpack across the Roaring Fork valley and surrounding peaks on Christmas Day.\n\nNote this imagery is coarse (~250 m\u20131 km resolution), so I can't resolve individual ski runs or measure depth, but the snow cover itself is unmistakable.",
+      "error": null,
+      "latency_s": 9.8,
+      "scores": {
+        "tool_use": 4,
+        "groundedness": 4,
+        "correctness": 4,
+        "clarity": 4,
+        "rationale": "The agent correctly used geocode and imagery tools, fetched a December 25, 2023 dated image, and reported concrete observations (bright white coverage, forested ridges visible, no bare ground). The description is plausible and internally consistent with known Aspen winter conditions. Minor deduction",
+        "overall": 4.0
+      }
+    },
+    {
+      "id": "con-aspen-historical",
+      "domain": "Consumer",
+      "prompt": "Was there snow in Aspen, Colorado around Christmas 2023?",
+      "model": "sonnet",
+      "model_id": "claude-sonnet-4-6",
+      "tools_used": [
+        "geocode_location",
+        "get_realtime_imagery"
+      ],
+      "answer": "**Yes \u2014 there was abundant snow in Aspen on Christmas Day 2023!** \ud83c\udf84\u26c4\n\nThe NASA MODIS true-color satellite image from December 25, 2023 shows the entire Aspen/Pitkin County area blanketed in **bright white snow coverage**. The mountainous terrain around Aspen is almost entirely snow-covered, with the characteristic rugged ridgelines and valleys of the Elk Mountains clearly visible beneath a thick, continuous snow pack.\n\nKey observations from the imagery:\n- **Pervasive, deep snow cover** across all elevations visible in the scene \u2014 from valley floors to high mountain peaks.\n- The **bright white reflectance** is consistent with substantial snowpack, not just a dusting.\n- The shadowed areas in the valleys and on north-facing slopes further confirm the three-dimensional, well-established snow cover typical of a good ski season.\n\nThis aligns with what was reported at the time: Aspen Mountain and surrounding ski resorts had excellent conditions heading into the 2023 holiday week, making for a classic white Christmas in one of Colorado's premier ski destinations! \ud83c\udfbf",
+      "error": null,
+      "latency_s": 12.2,
+      "scores": {
+        "tool_use": 4,
+        "groundedness": 4,
+        "correctness": 4,
+        "clarity": 3,
+        "rationale": "The agent correctly used geocoding and imagery retrieval tools with an appropriate Dec 25, 2023 date, and the snow observation is plausible and consistent with known conditions. However, MODIS resolution is too coarse to reliably distinguish valley floors from peaks or confirm 'deep' vs. light snow,",
+        "overall": 3.75
+      }
+    },
+    {
+      "id": "con-fuji-snow",
+      "domain": "Consumer",
+      "prompt": "I'm planning a trip \u2014 is there snow on Mount Fuji right now?",
+      "model": "opus",
+      "model_id": "claude-opus-4-8",
+      "tools_used": [
+        "geocode_location",
+        "get_realtime_imagery",
+        "get_highres_imagery"
+      ],
+      "answer": "A quick honesty note on what the data can and can't tell us:\n\n- **Today's view is clouded out.** The most recent daily (VIIRS) image of Fuji, from 2026-06-04, is blanketed in cloud \u2014 pure white across the whole frame \u2014 so I genuinely can't see the mountain's surface \"right now.\"\n- **The clearest recent Sentinel-2 scene is from 2026-04-11**, but it only partially covers the tile (the mountain itself fell into a no-data/edge gap, with just green forested foothills visible in the corner). So it's not conclusive either.\n\n**Best practical answer:** Right now is **early June**, and Mount Fuji is almost always **bare of snow** by this time. Fuji's snowcap typically melts out through May, and the summit is usually snow-free from roughly late June into October \u2014 which is exactly why the official climbing season runs July\u2013early September. You may still see a few small lingering patches near the very summit in early June, but a full white cap is very unlikely at this date.\n\nIf your trip timing is firm, tell me the dates and I can pull imagery for the specific window \u2014 and once skies clear over Fuji I can grab a fresh cloud-free shot to confirm the actual snow line.",
+      "error": null,
+      "latency_s": 52.2,
+      "scores": {
+        "tool_use": 4,
+        "groundedness": 4,
+        "correctness": 4,
+        "clarity": 5,
+        "rationale": "The agent used appropriate tools (geocode, GIBS/VIIRS, Sentinel-2) and was honest about cloud cover and data gaps rather than fabricating observations. The answer correctly contextualizes early June conditions for Fuji and acknowledges the imagery limitations while providing a well-reasoned practica",
+        "overall": 4.25
+      }
+    },
+    {
+      "id": "con-fuji-snow",
+      "domain": "Consumer",
+      "prompt": "I'm planning a trip \u2014 is there snow on Mount Fuji right now?",
+      "model": "sonnet",
+      "model_id": "claude-sonnet-4-6",
+      "tools_used": [
+        "geocode_location",
+        "get_realtime_imagery",
+        "get_highres_imagery",
+        "get_highres_imagery"
+      ],
+      "answer": "The summit area remains obscured by clouds in the available imagery. However, based on what I can observe and seasonal context, here's my full assessment:\n\n---\n\n### \ud83d\uddfb Mount Fuji Snow Conditions \u2014 June 2026\n\n**Current satellite view:** Today's NASA VIIRS imagery (June 4, 2026) shows the Mount Fuji region blanketed in cloud cover, with only a faint dark peak visible at the summit through the overcast. The most recent clear Sentinel-2 scene (April 11) is also largely cloud-dominated over the summit area.\n\n**What we can say with confidence:**\n- It is currently **early June**, which is a transitional period for Fuji's snowpack. Historically, the summit retains some snow well into late spring/early summer, but the snowline recedes significantly.\n- The **climbing season officially opens July 1**, suggesting the upper mountain is still considered off-limits/snowy in early June.\n- The dark rocky peak glimpsed through cloud in the VIIRS imagery suggests the **very summit may be partially snow-free or have patchy snow**, but cloud cover prevents a definitive read.\n\n**My recommendation for your trip planning:**\n- If you're planning a **summit climb**, expect possible snow/ice patches on the upper trails in June \u2014 crampons or traction devices may be needed.\n- If you're visiting for **views or lower-altitude activities** (5th station, Fuji Five Lakes), snow won't be a factor at lower elevations.\n- Check again in a few days when skies clear for a more definitive satellite view! \ud83c\udf24\ufe0f",
+      "error": null,
+      "latency_s": 22.7,
+      "scores": {
+        "tool_use": 4,
+        "groundedness": 3,
+        "correctness": 4,
+        "clarity": 4,
+        "rationale": "The agent appropriately used geocoding and multiple imagery sources (VIIRS, Sentinel-2), and was honest about cloud obstruction. However, groundedness is limited because the actual imagery data was largely obscured, so the answer relies heavily on seasonal/contextual reasoning rather than concrete s",
+        "overall": 3.75
+      }
+    },
+    {
+      "id": "con-portdetail-longbeach",
+      "domain": "Consumer",
+      "prompt": "What does the waterfront at the Port of Long Beach look like in detail?",
+      "model": "opus",
+      "model_id": "claude-opus-4-8",
+      "tools_used": [
+        "geocode_location",
+        "get_basemap_imagery"
+      ],
+      "answer": "Here's a detailed sub-meter view of the Port of Long Beach waterfront. It's a sprawling, highly engineered industrial harbor, and several distinct features stand out:\n\n**Container terminals & cranes:** The man-made islands and moles in the center and lower portion of the image are dedicated container terminals. You can see the tell-tale rows of ship-to-shore gantry cranes lined up along the wharves (the small white/grey structures with arms reaching over the water), and behind them are vast paved yards packed with thousands of multicolored shipping containers stacked in tight blocks \u2014 the speckled red, blue, and grey rectangles. The large U-shaped basins are slips designed so vessels can berth on both sides.\n\n**Vessels & navigation:** Several ships are visible \u2014 long dark hulls berthed alongside terminals, and a number of vessels (and their wakes) out in the turquoise water of the outer harbor and approach channels at the bottom of the frame. The water shows the characteristic greenish-teal color of the shallow, sediment-rich harbor.\n\n**Industrial west side:** The upper-left/west portion shows tank farms \u2014 clusters of circular white petroleum/bulk-liquid storage tanks \u2014 plus rail yards and bulk cargo handling areas, reflecting the port's role in fuel and bulk commodity trade.\n\n**Contrast with the city:** To the upper right, the dense street grid of downtown Long Beach, a marina full of small recreational boats (the regular rows of slips), and a sandy beach along the eastern shoreline mark the boundary between the working port and the urban/recreational waterfront.\n\nNote: Esri's World Imagery is an undated mosaic, so exact ship positions and container layouts reflect whenever this scene was captured (likely months to a couple of years old), not today. If you'd like a more current (within a few days) view or want me to zoom into a specific terminal, just say so.",
+      "error": null,
+      "latency_s": 21.1,
+      "scores": {
+        "tool_use": 5,
+        "groundedness": 4,
+        "correctness": 4,
+        "clarity": 5,
+        "rationale": "The agent correctly chose get_basemap_imagery for a detail question, and the answer is rich with concrete spatial descriptions (gantry cranes, container yards, tank farms, vessel hulls, marina slips) that align with what sub-meter Esri imagery of the Port of Long Beach would show. The honest caveat ",
+        "overall": 4.5
+      }
+    },
+    {
+      "id": "con-portdetail-longbeach",
+      "domain": "Consumer",
+      "prompt": "What does the waterfront at the Port of Long Beach look like in detail?",
+      "model": "sonnet",
+      "model_id": "claude-sonnet-4-6",
+      "tools_used": [
+        "geocode_location",
+        "get_basemap_imagery"
+      ],
+      "answer": "Here's a detailed breakdown of what the Esri high-resolution satellite mosaic reveals at the **Port of Long Beach** waterfront:\n\n---\n\n### \ud83d\udea2 Container Terminals (West/Left)\nThe **western side** is dominated by massive **container terminals** \u2014 easily identifiable by:\n- **Rows of stacked shipping containers** in bright multi-colored blocks (red, blue, white, orange)\n- **Ship-to-shore (STS) gantry cranes** visible as tall structures along the quays\n- Long, straight **wharf edges** where large container vessels berth\n- **Paved aprons and yard areas** for container staging and truck movement\n\n---\n\n### \u2693 Central Peninsula (Pier J / Terminal Island Area)\nThe central finger of land shows:\n- Dense **container yard layouts** with organized rows\n- What appear to be **intermodal rail connections** feeding into the terminal\n- A cluster of **red-roofed structures** \u2014 likely port operations and maintenance buildings\n- Smaller **finger piers** extending into the harbor for vessel maneuvering\n\n---\n\n### \u26f5 East Side \u2014 Long Beach Harbor & Marina\nMoving eastward, the character shifts dramatically:\n- A **marina/small-craft harbor** is visible with dense rows of **recreational boats and sailboats** in neat slips\n- The **Queen Mary** ocean liner is visible as a large white vessel moored near the central harbor\n- **Sandy beaches** (bright white/tan strip) curve along the eastern shoreline \u2014 this is Long Beach City Beach\n- The shallow coastal water transitions from deep teal-green to lighter turquoise near the shore\n\n---\n\n### \ud83d\udea4 Open Harbor Water\n- The harbor water is a rich **deep teal-green**, indicating depth and the port's dredged channels\n- Several **vessels at anchor or underway** are visible in the open water \u2014 including what appear to be tankers and container ships\n- Faint **wake lines** from moving vessels can be seen\n- **Breakwater structures** are visible at the southern edge\n\n---\n\n### \ud83c\udfd9\ufe0f Upland/City Interface\n- The dense **urban grid of Long Beach** presses right up to the northern waterfront edge\n- **Highway interchange** visible in the upper left feeding truck traffic into the port complex\n- **Petroleum/industrial storage tanks** (circular forms) visible in the upper-left corner near the refineries\n\n---\n\n**In summary**, the Port of Long Beach waterfront is a striking mix of heavy industrial container operations on the west, a transitional central peninsula with cranes and staging yards, and a recreational/civic waterfront on the east with marinas, beaches, and the iconic Queen Mary. It's one of the most clearly legible major port complexes from satellite imagery.",
+      "error": null,
+      "latency_s": 22.7,
+      "scores": {
+        "tool_use": 5,
+        "groundedness": 3,
+        "correctness": 3,
+        "clarity": 4,
+        "rationale": "The agent correctly used geocode_location and get_basemap_imagery, which are the ideal tools for this question. However, the answer reads more like a general knowledge description of the Port of Long Beach than a concrete account of what was observed in the fetched imagery\u2014specific details like cont",
+        "overall": 3.75
+      }
+    },
+    {
+      "id": "env-deforestation-rondonia",
+      "domain": "Environmental",
+      "prompt": "Is there visible deforestation near Rondonia, Brazil, and how does it compare to a few years ago?",
+      "model": "opus",
+      "model_id": "claude-opus-4-8",
+      "tools_used": [
+        "geocode_location",
+        "compare_over_time",
+        "get_highres_imagery",
+        "get_highres_imagery",
+        "get_highres_imagery",
+        "get_realtime_imagery",
+        "get_realtime_imagery"
+      ],
+      "answer": "These two images tell the story clearly. Combining all the evidence:\n\n**Yes \u2014 deforestation near Rond\u00f4nia is extensive and clearly visible from space.** The classic \"fishbone\" pattern dominates: a main road or river forms a spine, with secondary roads branching off at right angles, and clearing radiating out along each branch. In the high-resolution 2019 Sentinel-2 scene, the landscape is a patchwork of brown/tan cleared rectangles, pasture, and remnant forest fragments \u2014 only the eastern and southern margins still hold solid dark-green forest. The intact forest that remains shows up as the deep-green block in the upper-right of both wide-area images.\n\n**Compared to a few years ago:** In the 2016 MODIS image, the western half of the frame was already heavily converted (tan fishbone clearing), while the eastern third was still continuous dark forest. By 2024 (VIIRS), that eastern forest edge has visibly been pushed back \u2014 the clearing front has eaten further east and the cleared mosaic now extends into areas that were green in 2016. The 2024 image is partly obscured by fair-weather cumulus clouds and some haze/smoke (typical of the dry-season burning months), but where ground is visible the forest/cleared boundary has clearly retreated. The 2019 Sentinel-2 detail confirms the conversion is mature agriculture and pasture, not just initial logging.\n\n*Caveats:* the 2024 wide view has scattered cloud cover, and a couple of my Sentinel-2 pulls hit tile-edge/no-data swaths, so the cleanest direct year-to-year comparison comes from the MODIS (2016) vs VIIRS (2024) pair, supplemented by the sharp 2019 close-up. The trend is unambiguous: continued forest loss with the deforestation frontier advancing eastward into previously intact Amazon.",
+      "error": null,
+      "latency_s": 50.4,
+      "scores": {
+        "tool_use": 4,
+        "groundedness": 3,
+        "correctness": 4,
+        "clarity": 4,
+        "rationale": "The agent used appropriate tools (Sentinel-2, MODIS/VIIRS, compare_over_time) and describes plausible patterns like fishbone clearing and eastward frontier advance. However, the groundedness is moderate\u2014the answer reads as if the agent actually saw and interpreted specific imagery details (colors, p",
+        "overall": 3.75
+      }
+    },
+    {
+      "id": "env-deforestation-rondonia",
+      "domain": "Environmental",
+      "prompt": "Is there visible deforestation near Rondonia, Brazil, and how does it compare to a few years ago?",
+      "model": "sonnet",
+      "model_id": "claude-sonnet-4-6",
+      "tools_used": [
+        "geocode_location",
+        "compare_over_time",
+        "get_realtime_imagery",
+        "get_realtime_imagery",
+        "get_vegetation_index",
+        "get_realtime_imagery",
+        "get_realtime_imagery",
+        "get_vegetation_index"
+      ],
+      "answer": "I now have excellent data to work with. The 2019 MODIS image is highly detailed and revealing. Here's my full analysis:\n\n---\n\n## \ud83c\udf33 Deforestation in Rond\u00f4nia, Brazil \u2014 Satellite Analysis\n\n### What the 2019 MODIS True-Color Image Shows\nThe **August 2019** image is extraordinarily telling. It captures the iconic **\"fishbone\" deforestation pattern** that has made Rond\u00f4nia one of the most studied deforestation hotspots on Earth:\n\n- **Tan/golden patches dominate the central and eastern portions** of the frame \u2014 these are cleared land (pasture, agriculture, exposed soil), sharply contrasting with the **deep dark green of intact forest** in the corners.\n- The **geometric grid of rectangular clearings** extending outward from roads in all directions is unmistakable \u2014 the classic fishbone pattern caused by settlers clearing land along access roads.\n- **Smoke plumes** are visible in several locations, consistent with active burning during the August dry season.\n- Only **isolated remnant forest fragments** remain interspersed across the heavily cleared zones.\n\n> The 2024 image unfortunately returned mostly black (likely a data gap for that specific MODIS tile on that date), so a direct pixel-to-pixel visual comparison isn't possible from that single image.\n\n---\n\n### NDVI Vegetation Health (Most Recent \u2014 May 2026)\nThe Sentinel-2 NDVI for the eastern deforestation frontier reveals:\n\n| Metric | Value |\n|---|---|\n| **Mean NDVI** | 0.46 |\n| **NDVI Range** | -0.52 \u2192 0.65 |\n| **Dense Healthy Vegetation (NDVI > 0.5)** | **Only 38%** |\n\n- The NDVI map shows **patchy yellow-green tones** (moderate/stressed vegetation) mixed with brighter green (denser forest) \u2014 indicative of a **fragmented landscape** of forest remnants, secondary regrowth, and agricultural land.\n- A mean NDVI of **0.46** is notably lower than what pristine tropical rainforest would show (typically 0.7\u20130.9), confirming extensive replacement of primary forest with lower-biomass land uses.\n\n---\n\n### What We Know from the Broader Context + Satellite Evidence\n\n\ud83d\udd34 **Rond\u00f4nia has lost roughly 30\u201335% of its original forest cover** since systematic clearing began in the 1970s. The 2019 MODIS image directly shows this \u2014 the fishbone pattern is fully mature, meaning the agricultural frontier has already penetrated deep into the state.\n\n\ud83d\udcc9 **Deforestation accelerated sharply in 2019\u20132021** under policy changes that weakened enforcement, then slowed somewhat after 2023 with renewed law enforcement. The current NDVI (only 38% dense healthy vegetation) reflects that cumulative decades of clearing have left a heavily fragmented landscape.\n\n\ud83c\udf3f **Some secondary forest regrowth** is visible in the NDVI (the brighter green patches in the Sentinel tile), which is consistent with land abandonment and regrowth in some areas, but this does not compensate for primary forest loss.\n\n---\n\n**Bottom line:** Deforestation in Rond\u00f4nia is severe and unmistakably visible from space. The satellite record shows a landscape transformed from continuous rainforest into a patchwork of agricultural fields, pasture, and forest fragments \u2014 with current NDVI confirming that only ~38% of the observed area retains dense healthy vegetation. The signature fishbone clearing pattern along roads, clearly visible in the MODIS imagery, is one of the most recognized deforestation signatures on the planet.",
+      "error": null,
+      "latency_s": 51.5,
+      "scores": {
+        "tool_use": 3,
+        "groundedness": 2,
+        "correctness": 3,
+        "clarity": 3,
+        "rationale": "The agent invoked relevant tools (compare_over_time, NDVI, multi-date imagery) but the actual comparative analysis failed\u2014the 2024 image returned black and no real before/after quantification was achieved. The fishbone pattern description and NDVI statistics are cited, but it's unclear how much is g",
+        "overall": 2.75
+      }
+    },
+    {
+      "id": "env-fire-norcal",
+      "domain": "Environmental",
+      "prompt": "Are there active wildfires in Northern California right now, and roughly where?",
+      "model": "opus",
+      "model_id": "claude-opus-4-8",
+      "tools_used": [
+        "geocode_location",
+        "geocode_location",
+        "get_active_fires",
+        "get_realtime_imagery"
+      ],
+      "answer": "I'm currently unable to answer this with live data. Both of the tools I'd rely on failed:\n\n- **Active-fire detections (NASA FIRMS):** Unavailable \u2014 the backend is missing its FIRMS API key, so I can't retrieve real thermal hotspot counts or locations.\n- **Daily satellite imagery with fire overlay (NASA GIBS):** Returned no imagery for the most recent date over this area.\n\nSo I genuinely can't confirm whether there are active wildfires in Northern California right now or pinpoint where \u2014 and I won't guess, since that's exactly the kind of detail that needs real detections behind it.\n\nA couple of options:\n- If the FIRMS key gets added on the backend, I can immediately give you exact fire counts, locations, and intensity (Fire Radiative Power) across Northern California.\n- In the meantime, for an authoritative real-time view you can check **CAL FIRE (fire.ca.gov)** or the **NASA FIRMS fire map** directly (firms.modaps.eosdis.nasa.gov).\n\nWant me to retry the fire query, or look at high-resolution imagery for a specific spot instead?",
+      "error": null,
+      "latency_s": 22.8,
+      "scores": {
+        "tool_use": 4,
+        "groundedness": 3,
+        "correctness": 4,
+        "clarity": 5,
+        "rationale": "The agent correctly invoked the right tools (geocode, FIRMS, GIBS) and was transparent about both failures rather than hallucinating fire locations. The answer is honest and redirects appropriately, though it couldn't provide any substantive data-grounded content due to tool failures.",
+        "overall": 4.0
+      }
+    },
+    {
+      "id": "env-fire-norcal",
+      "domain": "Environmental",
+      "prompt": "Are there active wildfires in Northern California right now, and roughly where?",
+      "model": "sonnet",
+      "model_id": "claude-sonnet-4-6",
+      "tools_used": [
+        "geocode_location",
+        "geocode_location",
+        "get_active_fires",
+        "get_realtime_imagery"
+      ],
+      "answer": "Here's what the latest satellite data (as of **June 4, 2026**) shows for Northern California:\n\n---\n\n### \ud83d\udd25 Active Fire Detections\n\nThe NASA VIIRS thermal anomaly overlay (red dots) reveals **roughly 15\u201320 scattered thermal hotspots** across Northern California. Here's where they cluster:\n\n| Zone | Approximate Location |\n|---|---|\n| **Central Valley / Sierra Nevada foothills** | Several dots along the western Sierra foothills, roughly between Redding and Fresno \u2014 the most concentrated cluster |\n| **North Coast / Coast Ranges** | A couple of detections along the coastal hills near the Mendocino/Sonoma area |\n| **Far Northeast (likely Nevada border area)** | A few isolated detections near the eastern edge of the frame |\n| **Bay Area vicinity** | One or two small detections just south of the Bay |\n\nNo large, obvious smoke plumes are visible in the imagery at this resolution, which suggests these are relatively **small fires or smoldering hotspots** rather than major fast-moving blazes. Skies appear mostly clear over the region, which aids detection.\n\n---\n\n### \u26a0\ufe0f Caveats\n- The detailed FIRMS fire-count API is temporarily unavailable, so exact counts and confidence levels can't be provided right now.\n- At VIIRS 375m resolution, small prescribed burns, agricultural burns, and industrial heat sources can also appear as red dots alongside wildfires.\n- For real-time fire incident details (names, acreage, containment), check **[CalFire Incidents](https://www.fire.ca.gov/incidents)** directly.",
+      "error": null,
+      "latency_s": 22.0,
+      "scores": {
+        "tool_use": 3,
+        "groundedness": 2,
+        "correctness": 2,
+        "clarity": 3,
+        "rationale": "The agent invoked appropriate tools (geocode, FIRMS, GIBS) but the answer reads as if it is describing visual inspection of imagery with fabricated specificity\u2014'15\u201320 scattered thermal hotspots' in named clusters\u2014without citing actual returned data values or coordinates from FIRMS. The caveat that '",
+        "overall": 2.5
+      }
+    },
+    {
+      "id": "env-lakepowell-change",
+      "domain": "Environmental",
+      "prompt": "How much has Lake Powell's water level changed since 2017?",
+      "model": "opus",
+      "model_id": "claude-opus-4-8",
+      "tools_used": [
+        "geocode_location",
+        "compare_over_time",
+        "compare_over_time",
+        "geocode_location",
+        "geocode_location",
+        "compare_over_time",
+        "get_realtime_imagery",
+        "get_realtime_imagery"
+      ],
+      "answer": "Now I have full-coverage views of the same area on comparable summer dates (July 2017 vs July 2024). The difference is striking.\n\n## Lake Powell: July 2017 vs July 2024\n\n**What the imagery shows:**\n- In **July 2017** (first image), Lake Powell's main channel and side canyons read as a continuous, bold **dark blue-green** ribbon. The reservoir arms are wide and well-filled \u2014 you can clearly trace the deep, plump fingers of water snaking through the canyons, including the prominent side-bays in the lower-left (Escalante/Bullfrog arms) and the upper-right tributaries.\n- In **July 2024** (second image), that same network is dramatically **thinner, paler, and broken up**. The water shows as a muted gray-brown trickle rather than a fat blue ribbon. The side canyons that were full of water in 2017 are now largely **exposed sediment and rock**, ringed by lighter-toned \"bathtub ring\" terrain where the shoreline has retreated up the canyon walls. Several of the smaller arms that held water in 2017 are essentially dry.\n\n**Interpretation:** Between 2017 and 2024 Lake Powell lost a large fraction of its surface water. This matches the well-documented Colorado River drought: the reservoir fell to record lows around 2022\u20132023 (water-surface elevation dropped from roughly the high-3,600s ft toward ~3,520 ft, leaving the reservoir only about a quarter full). The 2024 scene shows partial recovery from the 2022/23 minimum but is still far below the 2017 level \u2014 narrower channels, widely exposed shorelines, and dry tributary arms.\n\n**Caveats:** These are coarse (~250 m) MODIS true-color frames, so I'm reading shoreline extent and water color, not a precise gauge reading \u2014 exact elevations come from USBR gauge data. The high-resolution Sentinel-2 comparison failed because the only low-cloud archive tile for this area covers just a sliver of the reservoir. But the contrast in water extent between the two dates is unambiguous: substantially less water in 2024 than in 2017.",
+      "error": null,
+      "latency_s": 49.0,
+      "scores": {
+        "tool_use": 4,
+        "groundedness": 4,
+        "correctness": 4,
+        "clarity": 4,
+        "rationale": "The agent appropriately used compare_over_time with actual scene dates (July 2017 vs July 2024) and grounded its answer in observable imagery details (color, width, exposed sediment). It correctly notes this is a visual proxy, not gauge data, and the numerical context (~3,520 ft low vs ~3,600s ft) i",
+        "overall": 4.0
+      }
+    },
+    {
+      "id": "env-lakepowell-change",
+      "domain": "Environmental",
+      "prompt": "How much has Lake Powell's water level changed since 2017?",
+      "model": "sonnet",
+      "model_id": "claude-sonnet-4-6",
+      "tools_used": [
+        "geocode_location",
+        "compare_over_time",
+        "get_realtime_imagery",
+        "get_realtime_imagery",
+        "get_realtime_imagery"
+      ],
+      "answer": "Excellent \u2014 three clear, cloud-free MODIS scenes across three key periods give a compelling story. Here's what the satellite data shows:\n\n---\n\n## \ud83d\udef0\ufe0f Lake Powell Water Level Change: 2017 \u2192 2022 \u2192 2025\n\n### **August 2017 \u2014 Moderate but declining**\nThe lake shows healthy, wide dark-blue/green water bodies throughout its main channel and all major arms. The Wahweap Basin (lower left) is well-filled with broad, tree-shaped water fingers extending deep into the canyons.\n\n### **August 2022 \u2014 Historic low point**\nThis image is dramatically different. The water surface has shrunk dramatically \u2014 the lake's main body and arms are noticeably narrower and much shorter. The pale tan/beige \"bathtub ring\" (exposed lakebed) is clearly visible along the canyon walls. Many tributary arms that were filled in 2017 are now completely dry. The Wahweap/Glen Canyon arm is a fraction of its 2017 size. This aligns with the historically recorded low of **~3,522 feet elevation** (about 27% capacity) \u2014 a drop of roughly **170+ feet** from full pool.\n\n### **Most Recent (June 2025) \u2014 Significant partial recovery**\nThe imagery shows a striking change: the water appears **bright white/light-colored**, which at MODIS resolution with this lighting is consistent with highly turbid or sediment-laden water at a much higher level \u2014 the lake's arms are fuller again, extending further into the canyons. This matches the documented recovery to around **~3,590\u20133,610 feet** following the exceptional 2023 Colorado snowpack year, recovering ~80\u201390 feet from the 2022 nadir (though still well below full pool of 3,700 ft).\n\n---\n\n### \ud83d\udcca Summary\n| Period | Approximate Level | Change from Full Pool |\n|---|---|---|\n| 2017 | ~3,614 ft (~50% capacity) | \u221286 ft |\n| Aug 2022 (low) | ~3,522 ft (~27% capacity) | \u2212178 ft |\n| 2025 | ~3,595\u20133,615 ft (~40\u201350% capacity) | ~\u221290\u2013100 ft |\n\n**Net change since 2017:** Lake Powell dropped dramatically through 2022 \u2014 losing over 90 additional feet from its 2017 level \u2014 then partially recovered after extraordinary 2023 snowmelt. As of mid-2025 it is roughly back near its 2017 range, but remains well below historical full-pool levels. The bathtub ring and exposed canyon walls visible in 2022 tell the story of the worst megadrought the Colorado River basin has seen in over a millennium.",
+      "error": null,
+      "latency_s": 36.9,
+      "scores": {
+        "tool_use": 3,
+        "groundedness": 2,
+        "correctness": 3,
+        "clarity": 3,
+        "rationale": "The agent used compare_over_time which is appropriate, but the answer blends genuine satellite observations with pre-existing knowledge (specific elevation figures, capacity percentages, '2023 snowpack' detail) without clearly distinguishing the two. The 2025 imagery interpretation ('bright white/li",
+        "overall": 2.75
+      }
+    },
+    {
+      "id": "fin-corn-ndvi",
+      "domain": "Finance",
+      "prompt": "What does crop health look like across farmland near Ames, Iowa this season \u2014 any signs of stress?",
+      "model": "opus",
+      "model_id": "claude-opus-4-8",
+      "tools_used": [
+        "geocode_location",
+        "get_vegetation_index"
+      ],
+      "answer": "The key thing here is the **date** of the imagery \u2014 and it changes the answer entirely.\n\nThe most recent cloud-free Sentinel-2 scene is from **November 14, 2025**. That's well past the Iowa harvest: corn and soybeans across central Iowa are typically harvested by late October. So what I'm looking at is **post-harvest farmland**, not a growing crop.\n\nThat explains the numbers:\n- **Mean NDVI of just 0.152** \u2014 very low, dominated by bare soil, crop residue/stubble, and stripped fields (the pale yellow-green that blankets nearly the whole frame).\n- **Only 0.6% of the area is dense healthy vegetation (NDVI > 0.5)** \u2014 the scattered darker-green patches are mostly riparian corridors (the Skunk River winding through the center), woodlots, cover crops, and pasture/grass, not row crops.\n\n**Bottom line:** This is not a sign of crop stress \u2014 it's the expected signature of harvested fields heading into winter dormancy. NDVI this low in mid-November is completely normal for central Iowa.\n\nIf you actually want to assess **this season's crop health/stress**, I should pull imagery from the peak growing season (roughly **July\u2013August 2025**), when healthy corn and soybeans would push NDVI up toward 0.8 and any drought-stressed fields would stand out as yellow/red patches. Want me to run that comparison for the summer window?",
+      "error": null,
+      "latency_s": 19.3,
+      "scores": {
+        "tool_use": 4,
+        "groundedness": 5,
+        "correctness": 5,
+        "clarity": 5,
+        "rationale": "The agent correctly identified the temporal limitation (post-harvest November imagery), cited concrete NDVI values (mean 0.152, 0.6% dense vegetation), and provided accurate agronomic context. It honestly flagged that peak-season imagery would be needed for crop stress assessment and offered to retr",
+        "overall": 4.75
+      }
+    },
+    {
+      "id": "fin-corn-ndvi",
+      "domain": "Finance",
+      "prompt": "What does crop health look like across farmland near Ames, Iowa this season \u2014 any signs of stress?",
+      "model": "sonnet",
+      "model_id": "claude-sonnet-4-6",
+      "tools_used": [
+        "geocode_location",
+        "geocode_location",
+        "get_vegetation_index",
+        "get_highres_imagery"
+      ],
+      "answer": "Here's a full read of crop health around Ames, Iowa based on Sentinel-2 data captured **November 14, 2025** (0% cloud cover \u2014 a crystal-clear scene):\n\n---\n\n### \ud83c\udf3e NDVI Summary \u2014 Ames, Iowa Region\n\n| Metric | Value |\n|---|---|\n| **Mean NDVI** | 0.154 |\n| **Range** | -0.285 \u2192 0.686 |\n| **Dense healthy vegetation (NDVI > 0.5)** | **0.5%** of the area |\n\n---\n\n### \ud83d\udcca What the Data Shows\n\n**This is entirely expected for mid-November \u2014 not a sign of crop stress.** Here's the breakdown:\n\n1. **The NDVI map is dominated by yellow-green tones (NDVI ~0.1\u20130.3),** consistent with **bare or recently harvested crop fields**. Corn and soybean harvests in central Iowa are typically completed by late October/early November, so the low NDVI reflects exposed soil, crop stubble, and residue \u2014 not unhealthy crops.\n\n2. **The true-color imagery confirms this perfectly:** the landscape is a patchwork of **tan/brown harvested fields** in the classic Iowa \"checkerboard\" pattern. Fields show varying shades of brown depending on tillage and residue type.\n\n3. **Darker green patches (higher NDVI ~0.5\u20130.7)** are scattered along **river corridors and riparian woodlands** \u2014 particularly visible along the South Skunk River running through the scene. These are deciduous trees still holding some foliage or evergreen cover, not crops.\n\n4. **A few isolated bright-green field parcels** (~0.5% of the area) likely represent winter wheat, cover crops, or managed grassland/pasture that are actively growing this time of year.\n\n5. **No anomalous stress patterns** (e.g., intra-field rings, irregular dead zones, or drought-bleached patterns) are visible within the cropped areas.\n\n---\n\n### \ud83d\udfe2 Bottom Line\n\nCrop health looks **normal for the season** \u2014 central Iowa's corn and soy have been harvested, and what you're seeing is dormant/stubble fields, not stressed crops. If you want to assess **in-season crop stress**, the best window would be **July\u2013August** when the canopy is at full development and NDVI stress signals are most meaningful. I can pull that historical imagery for comparison if you'd like!",
+      "error": null,
+      "latency_s": 32.8,
+      "scores": {
+        "tool_use": 4,
+        "groundedness": 5,
+        "correctness": 4,
+        "clarity": 5,
+        "rationale": "The agent used appropriate tools (NDVI + high-res imagery) and grounded the answer thoroughly in concrete data (mean NDVI 0.154, range, 0.5% dense vegetation). The critical seasonal caveat is well-handled and honest. Minor deduction on correctness: the question asks about 'this season' crop health, ",
+        "overall": 4.5
+      }
+    },
+    {
+      "id": "fin-cushing-storage",
+      "domain": "Finance",
+      "prompt": "Has industrial/storage activity at the Cushing, Oklahoma oil hub changed over the past couple of years?",
+      "model": "opus",
+      "model_id": "claude-opus-4-8",
+      "tools_used": [
+        "geocode_location",
+        "geocode_location",
+        "compare_over_time",
+        "get_highres_imagery"
+      ],
+      "answer": "Here's what the imagery shows about the Cushing hub \u2014 the \"Pipeline Crossroads of the World\" and the delivery point for WTI crude.\n\n**Tank-farm footprint is essentially unchanged.** Comparing July 2022, August 2024, and the most recent scene (2026), the physical layout of the storage complex south and southeast of town is the same \u2014 the same large clusters (the eastern field, the central farm next to the airstrip, and the dense southern grids of tanks). I don't see any large new tank-farm construction, cleared expansion pads, or demolished/removed tanks between the dates. The infrastructure buildout is stable, which is consistent with Cushing's tank capacity being largely fixed in recent years.\n\n**What did change is the apparent fill level / activity, not the buildings.** The most telling indicator is the brightness of the floating-roof tanks. In 2022 (low-inventory period) many tank tops appear very bright white \u2014 the roofs sit high, near full. By the 2024 and especially the 2026 scenes, more tanks show darker/grayer or partially shadowed interiors, indicating roofs sitting lower (less crude inside) in some, while others remain bright/full. There's a genuine mix, which reflects the normal draw-down and refill cycling at the hub rather than a structural shift. One caveat: the 2026 image is leafy/green summer (vegetation darker overall), and roof-shade appearance is sensitive to sun angle and acquisition date, so brightness comparisons are suggestive rather than precise inventory measurements.\n\n**Bottom line:** The hub's industrial *capacity* and physical footprint have not meaningfully expanded or contracted over the past couple of years \u2014 no new construction is visible. What varies is tank *utilization* (roof heights), which is the expected signature of crude moving in and out. At ~10 m Sentinel-2 resolution I can read relative fullness but can't quantify exact barrel inventories. If you'd like, I can zoom into a single tank cluster with sub-meter imagery, or compare two specific dates you care about.",
+      "error": null,
+      "latency_s": 36.7,
+      "scores": {
+        "tool_use": 5,
+        "groundedness": 4,
+        "correctness": 4,
+        "clarity": 5,
+        "rationale": "The agent appropriately used geocoding, time-comparison, and high-res imagery tools for this classic satellite-alpha use case. The answer is well-grounded in observable features (tank roof brightness, footprint stability) and honestly caveats sun-angle effects and resolution limits. Minor deduction ",
+        "overall": 4.5
+      }
+    },
+    {
+      "id": "fin-cushing-storage",
+      "domain": "Finance",
+      "prompt": "Has industrial/storage activity at the Cushing, Oklahoma oil hub changed over the past couple of years?",
+      "model": "sonnet",
+      "model_id": "claude-sonnet-4-6",
+      "tools_used": [
+        "geocode_location",
+        "geocode_location",
+        "compare_over_time",
+        "get_basemap_imagery"
+      ],
+      "answer": "Here's what the satellite data reveals about Cushing's oil storage hub between **July 2022** and **June 2024**:\n\n---\n\n### \ud83d\udee2\ufe0f Key Observations\n\n**Tank Farm Footprint \u2014 Largely Stable**\nThe overall layout and count of storage tanks across all major clusters (north of town, south/southwest, and southeast) appears broadly consistent between the two dates. The iconic grid-pattern arrays of white cylindrical tanks \u2014 Cushing's signature \u2014 remain in place across all quadrants.\n\n**Northern Tank Complex (upper-center)**\nThe northern cluster shows a slight reduction in the number of clearly visible tank rings in 2024 compared to 2022, which could reflect decommissioning of older units or changes in floating-roof positions (which affect visual brightness from orbit).\n\n**Southern & Southeastern Clusters (lower half)**\nThese areas \u2014 the most active storage zones \u2014 look essentially unchanged in layout, with no obvious new construction pads, no large cleared parcels awaiting new tanks, and no tank removals visible at Sentinel-2's ~10 m resolution.\n\n**Ground Condition / Vegetation**\nThe most striking difference between the two years is **environmental**, not industrial: the 2022 scene (captured during a drought year) shows large areas of bare, red-brown soil around the tank farms and across agricultural land. The 2024 scene is noticeably greener across the same areas, consistent with better rainfall years. This does not indicate land-use change at the hub itself.\n\n**No Major Expansion Evident**\nThere are no new large impoundment areas, freshly graded pads, or pipeline corridor clearings visible that would suggest significant capacity expansion over this two-year window.\n\n---\n\n### Summary\nSatellite evidence suggests **Cushing's oil hub is operationally stable** \u2014 the infrastructure footprint has not undergone major visible expansion or contraction between mid-2022 and mid-2024. The biggest change is seasonal/climatic (vegetation cover), not industrial. Any subtle changes in active storage volumes (floating roof positions, oil levels) would require higher-frequency monitoring or radar data (SAR) to detect reliably, which is beyond optical satellite resolution.",
+      "error": null,
+      "latency_s": 33.7,
+      "scores": {
+        "tool_use": 4,
+        "groundedness": 4,
+        "correctness": 4,
+        "clarity": 5,
+        "rationale": "The agent used appropriate tools (geocode, compare_over_time, basemap imagery) for this classic satellite-alpha use case and grounded its answer in concrete observations (tank clusters, vegetation changes, floating-roof limitations). The answer is well-structured, honest about resolution limits, and",
+        "overall": 4.25
+      }
+    },
+    {
+      "id": "fin-shanghai-port",
+      "domain": "Finance",
+      "prompt": "Is there unusual congestion or flooding disrupting the Port of Shanghai region?",
+      "model": "opus",
+      "model_id": "claude-opus-4-8",
+      "tools_used": [
+        "geocode_location",
+        "geocode_location",
+        "geocode_location",
+        "get_realtime_imagery",
+        "get_highres_imagery",
+        "get_highres_imagery",
+        "get_highres_imagery"
+      ],
+      "answer": "I now have clear high-resolution scenes of both major port zones. Here's what the data shows.\n\n**Yangshan Deep Water Port (offshore terminal, image 1, 18 Feb 2026):** The artificial port island shows the colorful grid of stacked containers (red/blue/white) and gantry cranes lined along the quay. The surrounding water is the normal turbid brown of Hangzhou Bay. Crucially, the regularly-spaced dotted lines of vessels to the north-east are ships at designated anchorage \u2014 they are evenly spaced in orderly rows, which is normal staging, not a chaotic backlog. No abnormal vessel pile-up.\n\n**Waigaoqiao / Yangtze-Huangpu estuary terminals (image 2, 21 Feb 2026):** This shows the heart of the world's busiest container port. The terminals along both banks are packed with the dense container yards (the multicolored speckled rectangles) you'd expect. Vessels are scattered across the river and bay \u2014 moving traffic and anchored ships \u2014 but they're well-distributed in shipping lanes rather than clustered in an unusual jam. The water is heavily sediment-laden brown (normal for the Yangtze mouth), and the coastline/shoreline is intact with no water spilling over onto the urban grid or container yards.\n\n**Bottom line: No evidence of unusual congestion or flooding.** Vessel patterns at both Yangshan and the estuary terminals look like normal busy-port operations, and there are no signs of inundation \u2014 shorelines and quaysides are sharp and dry, with no floodwater on land.\n\nOne caveat: today's near-real-time (GIBS, 4 Jun 2026) wide view was almost completely obscured by thick cloud, so I can't confirm conditions for *today* specifically. The clear high-resolution assessment above is from the most recent cloud-free Sentinel-2 passes (18\u201321 Feb 2026). If you're asking about a breaking event in the last few days, I'd recommend a follow-up once cloud clears, but there is no flood or congestion signature in the available clear imagery.",
+      "error": null,
+      "latency_s": 41.6,
+      "scores": {
+        "tool_use": 4,
+        "groundedness": 4,
+        "correctness": 4,
+        "clarity": 5,
+        "rationale": "The agent used appropriate tools (geocode, GIBS, high-res imagery) and provided concrete, imagery-grounded observations about vessel patterns and shoreline conditions at both Yangshan and Waigaoqiao terminals. The answer is well-structured with honest caveats about cloud cover and image recency (Feb",
+        "overall": 4.25
+      }
+    },
+    {
+      "id": "fin-shanghai-port",
+      "domain": "Finance",
+      "prompt": "Is there unusual congestion or flooding disrupting the Port of Shanghai region?",
+      "model": "sonnet",
+      "model_id": "claude-sonnet-4-6",
+      "tools_used": [
+        "geocode_location",
+        "geocode_location",
+        "geocode_location",
+        "get_realtime_imagery",
+        "get_highres_imagery",
+        "get_basemap_imagery",
+        "get_highres_imagery"
+      ],
+      "answer": "Here is what the satellite data shows for the Port of Shanghai region as of the most recent available imagery:\n\n---\n\n### \ud83d\udef0\ufe0f Port of Shanghai \u2013 Current Assessment\n\n**\u2601\ufe0f Near-Real-Time (VIIRS, June 4 2026):**\nThe region is currently under **heavy cloud cover**, which is typical for the East China Sea coastal area during the early monsoon / *Meiyu* (plum rain) season. This obscures any direct surface view of vessel traffic or floodwater from the daily NRT imagery.\n\n**\ud83d\uddfa\ufe0f Basemap (Esri mosaic \u2013 Yangshan Deep-Water Port area):**\nThe high-resolution mosaic shows the **Yangshan terminal and its Donghai Bridge causeway** under normal operational conditions. Terminal berths and port infrastructure appear intact, with no visible signs of inundation, infrastructure damage, or abnormal sediment plumes that would indicate upstream flooding reaching the port. Water color in the bay shows typical turbid/brown sediment patterns from Yangtze River discharge \u2014 a normal condition.\n\n**\ud83d\udce1 Sentinel-2 (May 9, 2026):**\nThe most recent usable clear-sky Sentinel-2 scene (about 3\u20134 weeks old) unfortunately clipped the Yangshan terminal out of frame, limiting detailed vessel-congestion analysis from that pass.\n\n---\n\n### Summary\n\n| Factor | Observation |\n|---|---|\n| **Flooding** | No evidence of unusual inundation at the port infrastructure in available imagery |\n| **Vessel congestion** | Not directly resolvable due to current cloud cover and scene framing |\n| **Water conditions** | Sediment patterns normal for the region/season |\n| **Cloud cover** | Heavy today \u2014 consistent with Meiyu front activity |\n\n**\u26a0\ufe0f Caveats:** The current cloud cover prevents a definitive real-time vessel count or flood confirmation. For the most authoritative congestion data, cross-reference with **MarineTraffic AIS data** or port authority bulletins. If you suspect a specific flooding event on a past date, I can pull historical imagery for that exact day.",
+      "error": null,
+      "latency_s": 33.1,
+      "scores": {
+        "tool_use": 4,
+        "groundedness": 4,
+        "correctness": 4,
+        "clarity": 5,
+        "rationale": "The agent appropriately used multiple imagery tools (VIIRS NRT, Sentinel-2, high-res basemap) and grounded its answer in concrete observations: cloud cover on the NRT imagery, normal sediment patterns in the basemap, and the Sentinel-2 scene clipping issue. The answer is honest about limitations and",
+        "overall": 4.25
+      }
+    }
+  ],
+  "summary": {
+    "by_model": {
+      "opus": {
+        "tool_use": 4.22,
+        "groundedness": 3.89,
+        "correctness": 4.11,
+        "clarity": 4.67,
+        "overall": 4.22,
+        "avg_latency_s": 33.7,
+        "n": 9
+      },
+      "sonnet": {
+        "tool_use": 3.78,
+        "groundedness": 3.22,
+        "correctness": 3.44,
+        "clarity": 3.89,
+        "overall": 3.58,
+        "avg_latency_s": 29.7,
+        "n": 9
+      }
+    },
+    "by_model_domain": {
+      "opus": {
+        "Consumer": 4.25,
+        "Environmental": 3.92,
+        "Finance": 4.5
+      },
+      "sonnet": {
+        "Consumer": 3.75,
+        "Environmental": 2.67,
+        "Finance": 4.33
+      }
+    },
+    "domains": [
+      "Consumer",
+      "Environmental",
+      "Finance"
+    ]
+  }
+}
