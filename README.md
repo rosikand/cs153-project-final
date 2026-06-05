@@ -14,7 +14,7 @@ Parallax is an *agentic* satellite query engine. You ask a natural-language ques
 
 ## Why we built it
 
-Every day, satellites image the entire surface of the Earth — petabytes of open, free data from NASA, ESA, and others. Almost nobody can use it: pulling the right scene, for the right place, on the right date, and *interpreting* the pixels takes a GIS specialist and hours of work. Parallax collapses that to a sentence, for three very different audiences — environmental responders, everyday consumers, and financial/alt-data analysts. See the in-app **[Impact](frontend/src/pages/Impact.jsx)** page for the full case.
+Every day, satellites image the entire surface of the Earth — petabytes of open, free data from NASA, ESA, and others. Almost nobody can use it: pulling the right scene, for the right place, on the right date, and *interpreting* the pixels takes a GIS specialist and hours of work. Parallax collapses that to a sentence, for three very different audiences — environmental responders, everyday consumers, and financial/alt-data analysts. See the presentation video for more details and motivations. 
 
 ## What it does
 
@@ -157,7 +157,10 @@ parallax/
 
 This project was built in the spirit of the course's "One-Person Frontier Lab": **AI tooling was used heavily and is disclosed in full here.**
 
-- **Implementation tool — Claude Code (Anthropic):** essentially all of the code (backend, frontend, evaluation harness, this README) was written with Claude Code acting as a pair-programmer **under my direction**. I defined the product concept, made the architecture and design decisions, chose the data sources and models, prioritized and sequenced the features across many iterations, ran and tested the live app, and gave the feedback that drove each revision. The development happened as an interactive, iterative process over multiple sessions.
+- **Implementation tool — Claude Code (Anthropic):** a large portion of the code (backend, frontend, evaluation harness, this README) was written with Claude Code acting as a pair-programmer **under my direction**. I defined the product concept, made the architecture and design decisions, chose the data sources and models, prioritized and sequenced the features across many iterations, ran and tested the live app, and gave the feedback that drove each revision. The development happened as an interactive, iterative process over multiple sessions.
+
+The following models are used inside the product: 
+
 - **Runtime LLM — Claude (Anthropic API):** Claude Opus 4.8 (default) / Sonnet 4.6 powers the agent's tool-use reasoning, the vision-based imagery analysis, and the deep-research report writing.
 - **Evaluation judge — Claude Sonnet 4.6:** used as a fixed LLM-as-judge to grade benchmark responses.
 
@@ -192,10 +195,10 @@ No code was forked from an existing project; the repository was built from an em
 | Rubric (15 pts) | Where it lives |
 |---|---|
 | **Problem & Insight** | This README ("Why we built it") + the in-app `/impact` page |
-| **Execution & Technical Work** | The full app — `backend/` + `frontend/`, runnable via `./dev.sh` |
-| **Evaluation & Evidence** | `backend/eval/` + the `/benchmark` page (Opus vs Sonnet, per-dimension/domain, limitations) |
-| **Communication & Presentation** | README + `/how-it-works`, `/impact`, `/benchmark` pages + demo video |
-| **Process, Integrity & Disclosure** | "AI usage disclosure" + "Citations" above + git commit history |
+| **Execution & Technical Work** | Slide deck (`./slides.pdf`) and by running the full app — `backend/` + `frontend/`, runnable via `./dev.sh` |
+| **Evaluation & Evidence** |Running `backend/eval/` + the `/benchmark` page (Opus vs Sonnet, per-dimension/domain, limitations) |
+| **Communication & Presentation** | README + `/how-it-works`, `/impact`, `/benchmark` pages + demo video + `./slides.pdf`|
+| **Process, Integrity & Disclosure** | "AI usage disclosure" + "Citations" above;  (note: code was pasted over from previous github repo's and local dirs so github commit history is not accurate) |
 
 ---
 
